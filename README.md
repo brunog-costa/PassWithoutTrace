@@ -13,3 +13,6 @@ The whole execution can be simulated using Github Actions and SonarCloud or any 
 * Implement sample mockaroo data for DLP testing 
 * Include sample Github Actions yml file and tutorial for simulating 
 
+## Ref 
+
+This tactic is inspired by [this](https://www.youtube.com/watch?v=j8ZiIOd53JU&list=TLPQMjgwNDIwMjQNT7uB9QAfIg&index=4) DEF CON 31 talk and tries to add a stealth layer to the attack.
